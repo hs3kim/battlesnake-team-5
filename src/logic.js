@@ -1,11 +1,13 @@
+const {getSafeMoves} = require('./safe-moves')
+
 function info() {
     console.log("INFO")
     const response = {
         apiversion: "1",
         author: "",
-        color: "#888888",
-        head: "default",
-        tail: "default"
+        color: "#063c24",
+        head: "evil",
+        tail: "bolt"
     }
     return response
 }
@@ -19,12 +21,15 @@ function end(gameState) {
 }
 
 function move(gameState) {
-    let possibleMoves = {
-        up: true,
-        down: true,
-        left: true,
-        right: true
-    }
+    console.log(gamestate)
+    let possibleMoves = getSafeMoves(gameState)
+    console.log(possibleMoves)
+    // let possibleMoves = {
+    //     up: true,
+    //     down: true,
+    //     left: true,
+    //     right: true
+    // }
 
     // Step 0: Don't let your Battlesnake move back on its own neck
     const myHead = gameState.you.head
