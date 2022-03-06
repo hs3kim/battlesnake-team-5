@@ -101,28 +101,29 @@ function move(gameState) {
       let Moves = possibleMoves
       let areas = {'up': -1, 'down': -1, 'right': -1, 'left': -1}
       for (const move of Moves){
-        console.log('entering for loop')
+        // console.log('entering for loop')
         // const newState = getResult(gameState, move)
         const area = getAreaOfFreedom(gameState, move, isAboutToTimeout)
-        console.log('area', area, 'move', move)
+        // console.log('area', area, 'move', move)
         areas[move] = area
       }
       let safeMoves = Moves.filter((move) => areas[move] >= gameState.you.length)
       
       if (safeMoves.length == 0){
         console.log('possibleMoves[0]')
+        // instead of using a random safe move, choose direction with larger area
         return {
-          move:possibleMoves[0]
+          move:Object.keys(areas).reduce((a, b) => areas[a] >= areas[b] ? a : b)
         }
       }
       optimalMoves = optimalMoves.filter((move) => safeMoves.includes(move))
       if (optimalMoves.length == 0){
-        console.log('safeMoves[0]')
+        // console.log('safeMoves[0]')
         return {
           move:safeMoves[0]
         }
       } else {
-        console.log('optimalMoves[0]')
+        // console.log('optimalMoves[0]')
         return {
           move:optimalMoves[0]
         }
@@ -223,11 +224,11 @@ function getResult(state, action) {
 }
 
 function getAreaOfFreedom(state, move, isAboutToTimeout) {
-  console.log('move', move)
+  // console.log('move', move)
   const headNode = new Node(state.you.head.x, state.you.head.y)
-  console.log('headNode', headNode)
+  // console.log('headNode', headNode)
   let initial = performMove(headNode, move)
-  console.log('initial', initial)
+  // console.log('initial', initial)
   const frontier = [initial]
   let area = 0
   const reached = new Set();
@@ -246,7 +247,7 @@ function getAreaOfFreedom(state, move, isAboutToTimeout) {
     if (0 <= node.x && node.x < state.board.width && 0 <= node.y && node.y < state.board.height
        && state.board.snakes.every(
          (snake) => snake.body.every((segment, i) => {
-           return !(segment.x == node.x && segment.y == node.y) // || (i == 0 && snake.id == state.you.id)
+           return !(segment.x == node.x && segment.y == node.y)
          } )
     )) {
       area += 1
