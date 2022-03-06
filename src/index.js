@@ -19,7 +19,10 @@ app.post("/start", (req, res) => {
 });
 
 app.post("/move", (req, res) => {
-    res.send(move(req.body))
+    const gameState = req.body
+    const nextMove = move(gameState)
+    console.log(`${gameState.game.id} MOVE ${gameState.turn}: ${nextMove.move}`);
+    res.send(nextMove)
 });
 
 app.post("/end", (req, res) => {
