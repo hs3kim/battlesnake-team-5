@@ -132,7 +132,7 @@ function move(gameState) {
     
     } else {
       return {
-        move:possibleMoves[0]
+        move:Object.keys(areas).reduce((a, b) => areas[a] >= areas[b] ? a : b)
       }
     }
     
