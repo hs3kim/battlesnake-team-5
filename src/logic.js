@@ -43,7 +43,7 @@ function info() {
     const response = {
         apiversion: "1",
         author: "",
-        color: "#063c24",
+        color: "#068c24",
         head: "evil",
         tail: "bolt"
     }
